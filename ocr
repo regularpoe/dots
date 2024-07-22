@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# Siddharth Dushantha 2020
+#
+# https://github.com/sdushantha/bin
+#
+# This file is a script done by  Siddharth Dushantha, sans the comments, which I removed.
+
+TEXT_FILE="/tmp/ocr.txt"
+IMAGE_FILE="/tmp/ocr.png"
+
+dependencies=(tesseract maim xclip)
+for dependency in "${dependencies[@]}"; do
+    type -p "$dependency" &>/dev/null || {
+        notify-send "ocr" "Could not find '${dependency}', is it installed?"
+        echo "Could not find '${dependency}', is it installed?"
+        exit 1
+    }
+done
+
+maim -s "$IMAGE_FILE"
+
+STATUS=$?
+
+[ $STATUS -ne 0 ] && exit 1
+
+tesseract "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null
+
+sed -i 's/\x0c//' "$TEXT_FILE"
+
+NUM_LINES=$(wc -l < $TEXT_FILE)
+if [ "$NUM_LINES" -eq 0 ]; then
+    notify-send "ocr" "no text was detected"
+    exit 1
+fi
+
+xclip -selection clip < "$TEXT_FILE"
+
+notify-send "ocr" "$(cat $TEXT_FILE)"
+
+rm "$TEXT_FILE"
+rm "$IMAGE_FILE"

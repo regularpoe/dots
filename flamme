@@ -1,0 +1,25 @@
+#!/bin/bash
+
+input_file="serie.out"
+
+if [[ ! -f "$input_file" ]]; then
+    echo "Input file $input_file not found."
+    exit 1
+fi
+
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ -z "$line" ]]; then
+        filename=""
+        continue
+    fi
+
+    if [[ -z "$filename" ]]; then
+        filename="$line"
+        > "$filename"
+    else
+        echo "$line" | base64 --decode >> "$filename"
+    fi
+done < "$input_file"
+
+echo "Files have been successfully recreated from $input_file."
+

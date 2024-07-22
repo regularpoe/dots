@@ -1,0 +1,4 @@
+x=$(git config --local remote.origin.url|sed -n 's#.*/\([^.]*\)\.git#\1#p')
+y=$(git symbolic-ref --short HEAD)
+url="https://github.com/vedranvinko/$x/tree/$y"
+$(xdg-open "$url")

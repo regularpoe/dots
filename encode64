@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <path-to-file>"
+  exit 1
+fi
+
+if [ ! -f "$1" ]; then
+  echo "Error: File not found!"
+  exit 1
+fi
+
+base64 "$1" | xclip -sel clip
+
+echo "Base64 encoded content has been copied to the clipboard."

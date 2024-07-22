@@ -1,0 +1,23 @@
+#!/bin/bash
+
+rgb_to_hex() {
+  local r=$1
+  local g=$2
+  local b=$3
+  
+  if [ "$r" -lt 0 ] || [ "$r" -gt 255 ] || [ "$g" -lt 0 ] || [ "$g" -gt 255 ] || [ "$b" -lt 0 ] || [ "$b" -gt 255 ]; then
+    echo "Error: RGB values must be between 0 and 255."
+    exit 1
+  fi
+
+  printf '#%02X%02X%02X\n' "$r" "$g" "$b"
+}
+
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 R G B"
+  echo "Where R, G, B are integers between 0 and 255."
+  exit 1
+fi
+
+rgb_to_hex "$1" "$2" "$3"
+

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+hex_to_rgb() {
+  local hex=$1
+  
+  hex=${hex#\#}
+  
+  local r=$(printf '%d' 0x${hex:0:2})
+  local g=$(printf '%d' 0x${hex:2:2})
+  local b=$(printf '%d' 0x${hex:4:2})
+  
+  echo "RGB($r, $g, $b)"
+}
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 #hexcolor"
+  exit 1
+fi
+
+hex_to_rgb "$1"
+

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <number>"
+    exit 1
+fi
+
+input=$1
+base=10
+number=0
+
+if [[ $input =~ ^0x[0-9A-Fa-f]+$ ]]; then
+    base=16
+    number=$((10#$input))
+elif [[ $input =~ ^0o[0-7]+$ ]]; then
+    base=8
+    number=$((8#${input:2}))
+elif [[ $input =~ ^0b[01]+$ ]]; then
+    base=2
+    number=$((2#${input:2}))
+elif [[ $input =~ ^[0-9]+$ ]]; then
+    number=$input
+else
+    echo "Error: Unsupported number format."
+    exit 1
+fi
+
+binary=$(echo "obase=2; $number" | bc)
+hex=$(echo "obase=16; $number" | bc)
+octal=$(echo "obase=8; $number" | bc)
+
+echo "Recognized as base $base number: $input"
+echo "Decimal: $number"
+echo "Binary: $binary"
+echo "Hex: $hex"
+echo "Octal: $octal"

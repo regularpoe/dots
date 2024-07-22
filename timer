@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <minutes>"
+    exit 1
+fi
+
+minutes=$1
+
+(
+    sleep $(($minutes * 60))
+    notify-send "Countdown finished" "Your $minutes minute(s) countdown has ended."
+) &
+
+echo "Started a $minutes minute(s) countdown..."
+
