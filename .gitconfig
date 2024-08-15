@@ -1,6 +1,6 @@
 [user]
-    name = vedran
-    email = vinkovedran@gmail.com
+    name = regularpoe
+    email = vedranvinko@protonmail.com
 [core]
     editor = vim
     autocrlf = false
@@ -72,19 +72,17 @@
 [push]
     default = simple
     autosetupremote = true
-[commit]
-    verbose = true
 [interactive]
     diffFilter = delta --color-only
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [fetch]
     prune = true
     pruneTags = true
 [pull]
 	rebase = false
 [merge]
-    conflictstyle = zdiff3
+    conflictstyle = diff3
 [url "git@github.com:"]
     insteadOf = "https://github.com/"
 [branch]
