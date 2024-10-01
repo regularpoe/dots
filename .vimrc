@@ -168,8 +168,8 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " NERDTree
 " Open NERDTree if vim starts with no files
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Open NERDTree with Ctrl+t
 map <C-t> :NERDTreeToggle<CR>
@@ -204,4 +204,15 @@ let g:blamer_prefix = ' > '
 
 " Auto save files on buffer/focus lost
 autocmd BufLeave,FocusLost * silent! wall
+
+" lightline git branch name
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
