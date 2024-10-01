@@ -11,6 +11,7 @@ call plug#begin('~/vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
 Plug 'bling/vim-bufferline'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'elixir-editors/vim-elixir'
 Plug 'glts/vim-magnum'
 Plug 'glts/vim-radical'
@@ -22,12 +23,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'luochen1990/rainbow'
+Plug 'mbbill/undotree'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/vim-snakey-camel'
 Plug 'townk/vim-autoclose'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tyru/open-browser.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 source /home/vedran/vim/plugged/aloy/aloy.vim
@@ -230,4 +233,7 @@ let g:lightline = {
 " <leader>sC 	To upper camel case
 " <leader>sk 	To kebab case
 " <leader>sK 	To screaming kebab case
+
+" undotree
+nnoremap <F5> :UndotreeToggle<CR>
 
