@@ -12,7 +12,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
 Plug 'bling/vim-bufferline'
 Plug 'elixir-editors/vim-elixir'
+Plug 'glts/vim-magnum'
+Plug 'glts/vim-radical'
 Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-cursorword'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -20,6 +23,7 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'luochen1990/rainbow'
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/vim-snakey-camel'
 Plug 'townk/vim-autoclose'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -215,4 +219,15 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+" vim-radical
+" crd, crx, cro, crb convert the number under the cursor to decimal, hex, octal, binary, respectively
+
+" vim-snakey-camel
+" <leader>ss 	To snake case
+" <leader>sS 	To upper snake case
+" <leader>sc 	To camel case
+" <leader>sC 	To upper camel case
+" <leader>sk 	To kebab case
+" <leader>sK 	To screaming kebab case
 
