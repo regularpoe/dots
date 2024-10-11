@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: mukashi <file_name>"
+    exit 1
+fi
+
+FILE_NAME=$1
+DIRECTORY="natsukashii"
+
+if ! git ls-files --error-unmatch "$FILE_NAME" > /dev/null 2>&1; then
+    echo "Error: File '$FILE_NAME' is not tracked by git."
+    exit 1
+fi
+
+COMMITS=$(git log --pretty=format:%H -- "$FILE_NAME")
+COMMIT_COUNT=$(echo "$COMMITS" | wc -l)
+
+echo "The file '$FILE_NAME' has been modified in $COMMIT_COUNT commits."
+read -p "Do you want to proceed and save all versions in the '$DIRECTORY' directory? (y/n) " CONFIRMATION
+
+
+if [ "$CONFIRMATION" != "y" ]; then
+    echo "Aborting."
+    exit 0
+fi
+
+mkdir -p "$DIRECTORY"
+
+COUNT=1
+for COMMIT in $COMMITS; do
+    git show "$COMMIT:$FILE_NAME" > "$DIRECTORY/${FILE_NAME}_version_$COUNT"
+    echo "Saved version $COUNT of '$FILE_NAME' (commit $COMMIT)"
+    COUNT=$((COUNT + 1))
+done
+
+echo "All versions of '$FILE_NAME' have been saved in the '$DIRECTORY' directory."
