@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: milim {pretty|min} filename.json"
+    exit 1
+fi
+
+COMMAND=$1
+FILENAME=$2
+
+if [ ! -f "$FILENAME" ]; then
+    echo "File not found: $FILENAME"
+    exit 1
+fi
+
+case "$COMMAND" in
+    pretty)
+        jq '.' "$FILENAME" > temp.json && mv temp.json "$FILENAME"
+        echo "Formatted $FILENAME to pretty JSON."
+        ;;
+    min)
+        jq -c '.' "$FILENAME" > temp.json && mv temp.json "$FILENAME"
+        echo "Minimized $FILENAME to compact JSON."
+        ;;
+    *)
+        echo "Invalid command. Use 'pretty' or 'min'."
+        exit 1
+        ;;
+esac
+
+exit 0
+
