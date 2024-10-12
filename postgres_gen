@@ -1,0 +1,51 @@
+#!/bin/bash
+
+read -p "Enter the database volume name: " DB_VOLUME
+read -p "Enter the PostgreSQL username: " POSTGRES_USER
+read -sp "Enter the PostgreSQL password: " POSTGRES_PASSWORD
+echo
+read -p "Enter the PostgreSQL database name: " POSTGRES_DB
+read -p "Enter the PGAdmin email: " PGADMIN_EMAIL
+read -sp "Enter the PGAdmin password: " PGADMIN_PASSWORD
+echo
+
+cat <<EOF > docker-compose.yml
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    env_file:
+      - .env
+    ports:
+      - '5432:5432'
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - $DB_VOLUME:/var/lib/postgresql/data/pgdata
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - '5050:5050'
+
+volumes:
+  $DB_VOLUME:
+EOF
+
+cat <<EOF > .env
+POSTGRES_SERVER=db
+POSTGRES_USER=$POSTGRES_USER
+POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+POSTGRES_DB=$POSTGRES_DB
+PGADMIN_LISTEN_PORT=5050
+PGADMIN_DEFAULT_EMAIL=$PGADMIN_EMAIL
+PGADMIN_DEFAULT_PASSWORD=$PGADMIN_PASSWORD
+EOF
+
+echo "docker-compose.yml and .env files have been generated successfully."
+
