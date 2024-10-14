@@ -237,3 +237,6 @@ let g:lightline = {
 " undotree
 nnoremap <F5> :UndotreeToggle<CR>
 
+" Insert empty line at the end of file upon saving
+autocmd BufWritePre * if getline(line('$')) !~ '^$' | call append(line('$'), '') | endif
+
