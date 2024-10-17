@@ -240,3 +240,22 @@ nnoremap <F5> :UndotreeToggle<CR>
 " Insert empty line at the end of file upon saving
 autocmd BufWritePre * if getline(line('$')) !~ '^$' | call append(line('$'), '') | endif
 
+" Swap words
+function! SwapWords()
+    let l:cursor_pos = getpos('.')
+
+    normal! b
+
+    normal! v2e
+
+    let l:words = getline('.')[getpos("'<")[2]-1 : getpos("'>")[2]-1]
+
+    let l:reversed = join(reverse(split(l:words, '\s\+')), ' ')
+
+    execute 'normal! "_di' . l:reversed
+
+    call setpos('.', l:cursor_pos)
+endfunction
+
+nnoremap <leader>sw :call SwapWords()<CR>
+
